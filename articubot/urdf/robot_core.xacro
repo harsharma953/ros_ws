@@ -116,7 +116,6 @@
 
      <gazebo>
         <plugin name="diff_drive_controller" filename="libgazebo_ros_diff_drive.so">
-            
             <update_rate>50</update_rate>
             
             <left_joint>base_left_wheel_joint</left_joint>
