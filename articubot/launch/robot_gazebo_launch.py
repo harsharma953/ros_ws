@@ -1,4 +1,5 @@
-#launch this launch file and then ros2 run teleop_twist_keyboard teleop_twist_keyboard to move the bot in both gazebo and rviz
+#launch this launch file --> ros2 launch articubot robot_gazebo_launch.py world:=./src/articubot/worlds/sample.world
+# and then --> ros2 run teleop_twist_keyboard teleop_twist_keyboard to move the bot in both gazebo and rviz
 import os
 from ament_index_python.packages import get_package_share_directory
 from launch_ros.parameter_descriptions import ParameterValue
