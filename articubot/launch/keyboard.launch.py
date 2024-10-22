@@ -10,7 +10,7 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time')
 
     # Parameters for the teleop node can be added here if needed
-    teleop_params = os.path.join(get_package_share_directory('articubot_one'), 'config', 'teleop_params.yaml')
+    teleop_params = os.path.join(get_package_share_directory('articubot'), 'config', 'teleop_params.yaml')
 
     # Keyboard teleop node
     teleop_keyboard_node = Node(
