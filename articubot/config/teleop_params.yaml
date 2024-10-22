@@ -1,0 +1,12 @@
+teleop_twist_keyboard:
+  ros__parameters:
+    linear:
+      x: 0.5       # Forward/backward speed
+      y: 0.0       # Left/right speed (if applicable)
+      z: 0.0       # Up/down speed (if applicable)
+
+    angular:
+      z: 0.5       # Rotation speed
+      
+    enable_button: 0  # Not typically used for keyboard, can be left out
+    require_enable_button: false  # Enable button is usually not needed
