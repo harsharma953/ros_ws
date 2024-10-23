@@ -22,7 +22,7 @@ def generate_launch_description():
 
     urdf_file_path = os.path.join(get_package_share_path('articubot'), 'urdf', 'robot.urdf.xacro')
 
-    rviz_config_path = os.path.join(get_package_share_path('articubot'),'config', 'lidar_map_config.rviz')
+    rviz_config_path = os.path.join(get_package_share_path('articubot'),'config', 'slam_toolbox.rviz')
 
     
     robot_description = ParameterValue(Command(['xacro ', urdf_file_path]), value_type=str)
