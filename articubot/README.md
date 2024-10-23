@@ -8,5 +8,7 @@ Note that each directory currently has at least one file in it to ensure that gi
 
 -->ros2 launch slam_toolbox online_async_launch.py slam_params_file:=/home/invlab/Harsh/ros_ws/src/articubot/config/mapper_params_online_async.yaml  use_sim_time:=True
 
+## AMCL system for localization 
 
-
+--> ros2 run nav2_map_server map_server --ros-args -p yaml_filename:=/home/invlab/Harsh/ros_ws/my_map_save.yaml -p use_sim_time:=True
+--> ros2 run nav2_util lifecycle_bringup map_server
