@@ -24,3 +24,7 @@ Note that each directory currently has at least one file in it to ensure that gi
 # OR --> after adding spwaner in the launch file 
 --> ros2 launch articubot robot_gazebo_launch.py world:=/home/invlab/Harsh/ros_ws/src/articubot/worlds/obstacles.world
 --> ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/diff_cont/cmd_vel_unstamped
+
+## run the bot using gazebo_control 
+--> ros2 launch articubot robot_gazebo_launch.py world:=/home/invlab/Harsh/ros_ws/src/articubot/worlds/obstacles.world use_ros2_control:=false
+--> ros2 run teleop_twist_keyboard teleop_twist_keyboard

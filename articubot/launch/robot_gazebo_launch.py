@@ -4,10 +4,11 @@ from ament_index_python.packages import get_package_share_directory
 from launch_ros.parameter_descriptions import ParameterValue
 from launch.substitutions import Command
 from ament_index_python.packages import get_package_share_path
+from launch.substitutions import LaunchConfiguration, Command
 
 
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import IncludeLaunchDescription ,DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 from launch_ros.actions import Node
@@ -18,20 +19,28 @@ def generate_launch_description():
     package_name='articubot' 
 
     urdf_file_path = os.path.join(get_package_share_path('articubot'), 'urdf', 'robot.urdf.xacro')
-
     rviz_config_path = os.path.join(get_package_share_path('articubot'),'config', 'lidar_map_config.rviz')
-
-    
-    robot_description = ParameterValue(Command(['xacro ', urdf_file_path]), value_type=str)
-
-    robot_state_publisher_node =  Node(
-            package='robot_state_publisher',
-            executable='robot_state_publisher',
-            name='robot_state_publisher',
-            parameters=[{'robot_description': robot_description }]
-        )
-    
     gazebo_params_file = os.path.join(get_package_share_directory(package_name),'config','gazebo_params.yaml')
+
+      # Declare launch arguments
+    use_sim_time = LaunchConfiguration('use_sim_time')
+    use_ros2_control = LaunchConfiguration('use_ros2_control')
+    
+    # Process the URDF file using xacro
+    robot_description = ParameterValue(
+        Command(['xacro ', urdf_file_path, ' use_ros2_control:=', use_ros2_control]),
+        value_type=str
+    )
+
+    # Robot State Publisher Node
+    robot_state_publisher_node = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='robot_state_publisher',
+        output='screen',
+        parameters=[{'robot_description': robot_description, 'use_sim_time': use_sim_time}]
+    )
+    
 
     # Include the Gazebo launch file, provided by the gazebo_ros package and adding the yaml file to sync the rviz and gazebo
     gazebo = IncludeLaunchDescription(
@@ -64,9 +73,10 @@ def generate_launch_description():
         arguments=['-d', rviz_config_path]
     )
 
-
     # Launch them all!
     return LaunchDescription([
+        DeclareLaunchArgument('use_sim_time', default_value='false', description='Use sim time if true'),
+        DeclareLaunchArgument('use_ros2_control', default_value='true', description='Use ros2_control if true'),
         robot_state_publisher_node,
         gazebo,
         spawn_entity,
